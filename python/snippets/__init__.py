@@ -37,6 +37,7 @@ def simple_logger():
 
     return logger
 
+
 def ini_parse_exceptions():
     """
     Parsing INI and exceptions
@@ -57,6 +58,7 @@ def ini_parse_exceptions():
         logging.error('Unexpected error {0} {1} '.format(e.message, e.args))
 
     return out
+
 
 def get_page(url, timeout):
     """
