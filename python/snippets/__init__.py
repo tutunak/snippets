@@ -1,5 +1,6 @@
 import loggin
 import ConfigParser
+import requests  # pip3 install requests
 
 
 def simple_logger():
@@ -56,3 +57,29 @@ def ini_parse_exceptions():
         logging.error('Unexpected error {0} {1} '.format(e.message, e.args))
 
     return out
+
+def get_page(url, timeout):
+    """
+    Universal method for returning content of page
+    :param url: url
+    :param timeout: timeout
+    :return: response if return code 200 or fail
+    """
+    result = {'data': None}
+    exception_happened = True
+    try:
+        resp = requests.get(url, timeout=timeout)
+    except Exception as e:
+        logging.error('{}'.format(e))
+    else:
+        if resp.status_code != 200:
+            logging.error('Http code not 200: {}'.format(resp.status_code))
+        else:
+            exception_happened = False
+            result['result'] = 'ok'
+            result['data'] = resp
+    finally:
+        if exception_happened:
+            result['result'] = 'fail'
+            logging.info('Function get_page params {}'.format(url))
+    return result
