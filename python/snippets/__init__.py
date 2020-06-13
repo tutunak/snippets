@@ -1,5 +1,5 @@
-import loggin
-import ConfigParser
+import logging
+import configparser
 import requests  # pip3 install requests
 
 
@@ -45,14 +45,14 @@ def ini_parse_exceptions():
     """
     out = None
     try:
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.readfp(io.BytesIO(ini_file))
         out = config.get(section, option)
-    except ConfigParser.NoSectionError:
+    except configparser.NoSectionError:
         logging.error('No section {0} in file'.format(section))
-    except ConfigParser.MissingSectionHeaderError:
+    except configparser.MissingSectionHeaderError:
         logging.error('No valid ini file')
-    except ConfigParser.NoOptionError:
+    except configparser.NoOptionError:
         logging.error('Option "{0}" not found in section {1}'.format(option, section))
     except Exception as e:
         logging.error('Unexpected error {0} {1} '.format(e.message, e.args))
@@ -85,6 +85,7 @@ def get_page(url, timeout):
             result['result'] = 'fail'
             logging.info('Function get_page params {}'.format(url))
     return result
+
 
 def get_xml(xml_doc):
     """
