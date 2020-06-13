@@ -39,8 +39,9 @@ def simple_logger():
 def ini_parse_exceptions():
     """
     Parsing INI and exceptions
-    :return: opt
+    :return: out
     """
+    out = None
     try:
         config = ConfigParser.ConfigParser()
         config.readfp(io.BytesIO(ini_file))
