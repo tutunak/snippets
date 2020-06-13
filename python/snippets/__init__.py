@@ -83,3 +83,25 @@ def get_page(url, timeout):
             result['result'] = 'fail'
             logging.info('Function get_page params {}'.format(url))
     return result
+
+def get_xml(xml_doc):
+    """
+    universal method that return xmltree object or error
+    :param xml_doc: xml document
+    :return:  xml object or error
+    """
+    result = {'data': None}
+    exception_happened = True
+    try:
+        root = xml.etree.ElementTree.fromstring(xml_doc)
+    except Exception as e:
+        logging.error('{}'.format(e))
+    else:
+        exception_happened = False
+        result['result'] = 'ok'
+        result['data'] = root
+    finally:
+        if exception_happened:
+            result['result'] = 'fail'
+            logging.info('Function get_xml params {}'.format(xml_doc))
+    return result
